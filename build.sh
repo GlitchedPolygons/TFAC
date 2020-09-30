@@ -35,7 +35,7 @@ fi
 REPO=$(dirname "$0")
 rm -rf "$REPO"/out
 rm -rf "$REPO"/build
-mkdir -p "$REPO"/build/include && cd "$REPO"/build || exit
+mkdir -p "$REPO"/build && cd "$REPO"/build || exit
 
 cmake -DBUILD_SHARED_LIBS=On "-D${PROJECT_NAME}_BUILD_DLL=On" "-D${PROJECT_NAME}_PACKAGE=On" -DCMAKE_BUILD_TYPE=Release ..
 
@@ -44,7 +44,6 @@ cmake --build . --config Release
 export CC="$PREVCC"
 export CXX="$PREVCXX"
 
-cp -r ../include .
 cd "$REPO" || exit
 
 echo "  Done. Exported build into $REPO/build"

@@ -30,10 +30,12 @@
 
 #include <stdint.h>
 
-int base32_decode(const uint8_t *encoded, uint8_t *result, int bufSize)
-    __attribute__((visibility("hidden")));
-int base32_encode(const uint8_t *data, int length, uint8_t *result,
-                  int bufSize)
-    __attribute__((visibility("hidden")));
+// As per the Apache-2.0 license, I hereby state the changes I've applied to this Apache-2.0 licensed file:
+// -> Removed the two lines containing "__attribute__((visibility("hidden")));" to fix compilation under MSVC.
+//
+// Raphael Beck, the 30th of September, 2020
+
+int base32_decode(const uint8_t* encoded, uint8_t* result, int bufSize);
+int base32_encode(const uint8_t* data, int length, uint8_t* result, int bufSize);
 
 #endif /* _BASE32_H_ */
