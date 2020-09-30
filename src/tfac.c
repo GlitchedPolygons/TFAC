@@ -84,7 +84,7 @@ struct tfac_token tfac_hotp(const char* secret_key_base32, const uint8_t digits,
     uint8_t key[256];
     const int key_length = base32_decode((uint8_t*)secret_key_base32, key, sizeof(key));
 
-    out.number = tfac_hotp_raw(key, key_length, counter, digits, hash_algo);
+    out.number = tfac_hotp_raw(key, key_length, digits, counter, hash_algo);
     snprintf(out.string, sizeof(out.string), DIGITS_FORMAT[TFAC_MIN(TFAC_MAX_DIGITS, digits)], out.number);
 
     return out;
