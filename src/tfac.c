@@ -60,8 +60,10 @@ static uint64_t truncate(const uint8_t* hmac, const size_t hmac_length, const ui
 
 uint64_t tfac_hotp_raw(const uint8_t* secret_key, size_t secret_key_length, uint8_t digits, uint64_t counter, enum tfac_hash_algo hash_algo)
 {
-    uint8_t c[sizeof(counter)];
-    for (size_t i = 0; i < sizeof(c); i++)
+    assert(sizeof(counter) == 8);
+
+    uint8_t c[8];
+    for (size_t i = 0; i < 8; i++)
     {
         c[i] = (counter >> ((sizeof(counter) - i - 1) * 8)) & 0xFF;
     }
