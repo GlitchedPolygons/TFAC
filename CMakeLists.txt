@@ -17,7 +17,6 @@ set(${PROJECT_NAME}_SRC
         src/base32.c
         src/base32.h
         src/picohash.h
-        src/chillbuff.h
         src/tfac.c
         src/tfac.h)
 

@@ -51,4 +51,9 @@ int main(int argc, char* argv[])
     printf("%s\n", token.string);
     // printf("Raw number:   %llu\n", r.number);
     // printf("Token string: %s\n", r.string);
+
+    int i1=tfac_verify_totp(secret_key_base32, token.string,steps,hash_algo);
+    int i2=tfac_verify_totp(secret_key_base32, token.string,steps,hash_algo);
+    int i3=tfac_verify_totp(secret_key_base32, token.string,steps,hash_algo);
+    int i4;
 }
