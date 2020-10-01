@@ -108,6 +108,8 @@ Macros</h2></td></tr>
 <tr class="separator:a3183a1ea68715804dd863b3fac10c522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d3baa00d5ee6ca329c36d3289c85f7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a9d3baa00d5ee6ca329c36d3289c85f7f">TFAC_MAX_DIGITS</a>&#160;&#160;&#160;18</td></tr>
 <tr class="separator:a9d3baa00d5ee6ca329c36d3289c85f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ab0a11383c7c4bec58973db9aef894b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a3ab0a11383c7c4bec58973db9aef894b">TFAC_MAX_SECRET_KEY_SIZE</a>&#160;&#160;&#160;256</td></tr>
+<tr class="separator:a3ab0a11383c7c4bec58973db9aef894b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accae475f4b0af1b4bb889b8f59ba4b43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#accae475f4b0af1b4bb889b8f59ba4b43">TFAC_DEFAULT_HASH_ALGO</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:accae475f4b0af1b4bb889b8f59ba4b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0621483279f64e75fa7246aec051eced"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a0621483279f64e75fa7246aec051eced">TFAC_DEFAULT_DIGITS</a>&#160;&#160;&#160;6</td></tr>
@@ -129,8 +131,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad6aea39f95752bd92e1c9abf21136055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7def7a16a9ed2175fa380f6cacbe8ed7"><td class="memItemLeft" align="right" valign="top">TFAC_API struct <a class="el" href="structtfac__token.html">tfac_token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a7def7a16a9ed2175fa380f6cacbe8ed7">tfac_totp</a> (const char *secret_key_base32, uint8_t digits, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
 <tr class="separator:a7def7a16a9ed2175fa380f6cacbe8ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4be278ecf13018249a658e339e748f0"><td class="memItemLeft" align="right" valign="top">TFAC_API uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#ac4be278ecf13018249a658e339e748f0">tfac_totp_raw</a> (const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
-<tr class="separator:ac4be278ecf13018249a658e339e748f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686f332ea947f093797b6020c84080bf"><td class="memItemLeft" align="right" valign="top">TFAC_API uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a686f332ea947f093797b6020c84080bf">tfac_totp_raw</a> (const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo, time_t utc)</td></tr>
+<tr class="separator:a686f332ea947f093797b6020c84080bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a935410081095d3b0cfbb3f0adaefd84e"><td class="memItemLeft" align="right" valign="top">TFAC_API uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a935410081095d3b0cfbb3f0adaefd84e">tfac_verify_totp</a> (const char *secret_key_base32, const char *totp, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
 <tr class="separator:a935410081095d3b0cfbb3f0adaefd84e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff1a6e9bd2b5e2245740c15fac1d3432"><td class="memItemLeft" align="right" valign="top">TFAC_API struct <a class="el" href="structtfac__token.html">tfac_token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#aff1a6e9bd2b5e2245740c15fac1d3432">tfac_hotp</a> (const char *secret_key_base32, uint8_t digits, uint64_t counter, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
@@ -200,6 +202,21 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>The maximum amount of digits in the output token. </p>
 <p>Any digits parameter passed to the hotp/totp functions that exceeds this value is clamped to it. </p>
+
+</div>
+</div>
+<a id="a3ab0a11383c7c4bec58973db9aef894b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ab0a11383c7c4bec58973db9aef894b">&#9670;&nbsp;</a></span>TFAC_MAX_SECRET_KEY_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TFAC_MAX_SECRET_KEY_SIZE&#160;&#160;&#160;256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Maximum size of 2FA secrets. Keys that exceed this length will be truncated! </p>
 
 </div>
 </div>
@@ -396,8 +413,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac4be278ecf13018249a658e339e748f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4be278ecf13018249a658e339e748f0">&#9670;&nbsp;</a></span>tfac_totp_raw()</h2>
+<a id="a686f332ea947f093797b6020c84080bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686f332ea947f093797b6020c84080bf">&#9670;&nbsp;</a></span>tfac_totp_raw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -430,7 +447,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a>&#160;</td>
-          <td class="paramname"><em>hash_algo</em>&#160;</td>
+          <td class="paramname"><em>hash_algo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">time_t&#160;</td>
+          <td class="paramname"><em>utc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -447,6 +470,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">digits</td><td>How many digits should the output token contain? If unsure, pass <a class="el" href="tfac_8h.html#a0621483279f64e75fa7246aec051eced">TFAC_DEFAULT_DIGITS</a> (which is <code>6</code>). </td></tr>
     <tr><td class="paramname">steps</td><td>The step count: default is 30 seconds (<a class="el" href="tfac_8h.html#ab105c837a8b9d6508cf38150e89520f0">TFAC_DEFAULT_STEPS</a>). </td></tr>
     <tr><td class="paramname">hash_algo</td><td>Which hashing algorithm to use for the <code>HMAC</code>: default is <code>SHA-1</code> (<a class="el" href="tfac_8h.html#accae475f4b0af1b4bb889b8f59ba4b43">TFAC_DEFAULT_HASH_ALGO</a>). </td></tr>
+    <tr><td class="paramname">utc</td><td>The UTC timestamp for which to generate the TOTP. Pass <code>time(0)</code> to generate a currently valid token! </td></tr>
   </table>
   </dd>
 </dl>
@@ -500,7 +524,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>1</code> if the token was valid; <code>0</code> if verification failed or the token was already used once. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> if the token was valid; <code>0</code> if verification failed or if the token has already been used once. </dd></dl>
 
 </div>
 </div>
