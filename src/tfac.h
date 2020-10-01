@@ -14,6 +14,12 @@
    limitations under the License.
 */
 
+/**
+ * @file tfac.h
+ * @author Raphael Beck
+ * @brief 2FA (Two-Factor Authentication) for C using TOTP/HOTP.
+ */
+
 #ifndef TFAC_H
 #define TFAC_H
 
@@ -42,6 +48,11 @@ extern "C" {
 #define TFAC_MAX_DIGITS 18
 
 /**
+ * Maximum size of 2FA secrets. Keys that exceed this length will be truncated!
+ */
+#define TFAC_MAX_SECRET_KEY_SIZE 256
+
+/**
  * The default hash algorithm to use for the HMAC is SHA-1.
  */
 #define TFAC_DEFAULT_HASH_ALGO 0
@@ -55,6 +66,11 @@ extern "C" {
  * Default step count for typical Google Authenticator token formats (30 seconds).
  */
 #define TFAC_DEFAULT_STEPS 30
+
+/**
+ * Default obliteration table size.
+ */
+#define TFAC_DEFAULT_OBLITERATION_TABLE_INITIAL_CAP 4096
 
 /**
  * The hash algorithm to use for the HMAC (default is SHA-1).
@@ -127,9 +143,31 @@ TFAC_API struct tfac_token tfac_totp(const char* secret_key_base32, uint8_t digi
  * @param digits How many digits should the output token contain? If unsure, pass #TFAC_DEFAULT_DIGITS (which is <c>6</c>).
  * @param steps The step count: default is 30 seconds (#TFAC_DEFAULT_STEPS).
  * @param hash_algo Which hashing algorithm to use for the <c>HMAC</c>: default is <c>SHA-1</c> (#TFAC_DEFAULT_HASH_ALGO).
+ * @param utc The UTC timestamp for which to generate the TOTP. Pass <c>time(0)</c> to generate a currently valid token!
  * @return The TOTP token as an unsigned 64-bit integer.
  */
-TFAC_API uint64_t tfac_totp_raw(const uint8_t* secret_key, size_t secret_key_length, uint8_t digits, uint8_t steps, enum tfac_hash_algo hash_algo);
+TFAC_API uint64_t tfac_totp_raw(const uint8_t* secret_key, size_t secret_key_length, uint8_t digits, uint8_t steps, enum tfac_hash_algo hash_algo, time_t utc);
+
+/**
+ * Initializes the tfac_verify_totp() function, allocating memory for its obliteration table (where used up tokens are stored for some time to prevent their re-usage). <p>
+ * @param obliteration_table_size How big should the initial capacity of the TOTP obliteration table be? When unsure, pass #TFAC_DEFAULT_OBLITERATION_TABLE_INITIAL_CAP. This will expand on its own, but it's good to give a rough estimate based on how many validations per second you expect...
+ */
+TFAC_API void tfac_verify_init(size_t obliteration_table_size);
+
+/**
+ * Verifies a TOTP using the given \p secret_key_base32. If the token is validated successfully, it is obliterated and cannot be validated again: further tries will fail.
+ * @param secret_key_base32 The 2FA secret (Base32-encoded, NUL-terminated string).
+ * @param totp The token to verify.
+ * @param steps The steps parameter that was used to generate the token,
+ * @param hash_algo The hash algorithm that the token was created with (default is SHA-1: #TFAC_DEFAULT_HASH_ALGO).
+ * @return <c>1</c> if the token was valid; <c>0</c> if verification failed or if the token has already been used once.
+ */
+TFAC_API uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, uint8_t steps, enum tfac_hash_algo hash_algo);
+
+/**
+ * Deconstructs the tfac_verify_totp() function, freeing its memory.
+ */
+TFAC_API void tfac_verify_free();
 
 /**
  * Generate an HOTP using a given secret key (which is a base32-encoded, NUL-terminated string).

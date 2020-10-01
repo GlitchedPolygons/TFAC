@@ -69,77 +69,104 @@ $(function() {
 <div class="title">tfac.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef TFAC_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define TFAC_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#if defined(_WIN32) &amp;&amp; defined(TFAC_DLL)</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifdef TFAC_BUILD_DLL</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define TFAC_API __declspec(dllexport)</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define TFAC_API __declspec(dllimport)</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define TFAC_API</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define TFAC_MAX_DIGITS 18</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define TFAC_DEFAULT_HASH_ALGO 0</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#define TFAC_DEFAULT_DIGITS 6</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define TFAC_DEFAULT_STEPS 30</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">enum</span> tfac_hash_algo</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TFAC_SHA1 = 0,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    TFAC_SHA224 = 1,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    TFAC_SHA256 = 2,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structtfac__token.html">   56</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structtfac__token.html">tfac_token</a></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structtfac__token.html#a500f99ae181121ae546701be6db29a1d">   61</a></span>&#160;    <span class="keywordtype">char</span> <span class="keywordtype">string</span>[32];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66">   69</a></span>&#160;    uint64_t <a class="code" href="structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66">number</a>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structtfac__secret.html">   76</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structtfac__secret.html">tfac_secret</a></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="structtfac__secret.html#ad4029da8d9f85fc3c1b6d39ebcccd8a7">   82</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structtfac__secret.html#ad4029da8d9f85fc3c1b6d39ebcccd8a7">secret_key_base32</a>[48 + 1];</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="structtfac__secret.html#af62f85207fa502796b88666cb6cb3eb3">   87</a></span>&#160;    uint8_t <a class="code" href="structtfac__secret.html#af62f85207fa502796b88666cb6cb3eb3">secret_key</a>[30];</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;TFAC_API <span class="keyword">struct </span><a class="code" href="structtfac__secret.html">tfac_secret</a> tfac_generate_secret();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;TFAC_API <span class="keyword">struct </span><a class="code" href="structtfac__token.html">tfac_token</a> tfac_totp(const char* secret_key_base32, uint8_t digits, uint8_t steps, <span class="keyword">enum</span> tfac_hash_algo hash_algo);</div>
+<a href="tfac_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">   Copyright 2020 Raphael Beck</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">   you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">   You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">       http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">   Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">   distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">   See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">   limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#ifndef TFAC_H</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define TFAC_H</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#if defined(_WIN32) &amp;&amp; defined(TFAC_DLL)</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifdef TFAC_BUILD_DLL</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define TFAC_API __declspec(dllexport)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define TFAC_API __declspec(dllimport)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#define TFAC_API</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="tfac_8h.html#a9d3baa00d5ee6ca329c36d3289c85f7f">   48</a></span>&#160;<span class="preprocessor">#define TFAC_MAX_DIGITS 18</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="tfac_8h.html#accae475f4b0af1b4bb889b8f59ba4b43">   53</a></span>&#160;<span class="preprocessor">#define TFAC_DEFAULT_HASH_ALGO 0</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="tfac_8h.html#a0621483279f64e75fa7246aec051eced">   58</a></span>&#160;<span class="preprocessor">#define TFAC_DEFAULT_DIGITS 6</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="tfac_8h.html#ab105c837a8b9d6508cf38150e89520f0">   63</a></span>&#160;<span class="preprocessor">#define TFAC_DEFAULT_STEPS 30</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">   68</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    TFAC_SHA1 = 0,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    TFAC_SHA224 = 1,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    TFAC_SHA256 = 2,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="structtfac__token.html">   78</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structtfac__token.html">tfac_token</a></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="structtfac__token.html#a500f99ae181121ae546701be6db29a1d">   83</a></span>&#160;    <span class="keywordtype">char</span> <span class="keywordtype">string</span>[32];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66">   91</a></span>&#160;    uint64_t <a class="code" href="structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66">number</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="structtfac__secret.html">   98</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structtfac__secret.html">tfac_secret</a></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="structtfac__secret.html#ad4029da8d9f85fc3c1b6d39ebcccd8a7">  104</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structtfac__secret.html#ad4029da8d9f85fc3c1b6d39ebcccd8a7">secret_key_base32</a>[48 + 1];</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;TFAC_API uint64_t tfac_totp_raw(<span class="keyword">const</span> uint8_t* secret_key, <span class="keywordtype">size_t</span> secret_key_length, uint8_t digits, uint8_t steps, <span class="keyword">enum</span> tfac_hash_algo hash_algo);</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="structtfac__secret.html#af62f85207fa502796b88666cb6cb3eb3">  109</a></span>&#160;    uint8_t <a class="code" href="structtfac__secret.html#af62f85207fa502796b88666cb6cb3eb3">secret_key</a>[30];</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;TFAC_API <span class="keyword">struct </span><a class="code" href="structtfac__secret.html">tfac_secret</a> <a class="code" href="tfac_8h.html#ad6aea39f95752bd92e1c9abf21136055">tfac_generate_secret</a>();</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;TFAC_API <span class="keyword">struct </span><a class="code" href="structtfac__token.html">tfac_token</a> tfac_hotp(const char* secret_key_base32, uint8_t digits, uint64_t counter, <span class="keyword">enum</span> tfac_hash_algo hash_algo);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;TFAC_API <span class="keyword">struct </span><a class="code" href="structtfac__token.html">tfac_token</a> <a class="code" href="tfac_8h.html#a7def7a16a9ed2175fa380f6cacbe8ed7">tfac_totp</a>(const char* secret_key_base32, uint8_t digits, uint8_t steps, <span class="keyword">enum</span> <a class="code" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo);</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;TFAC_API uint64_t tfac_hotp_raw(<span class="keyword">const</span> uint8_t* secret_key, <span class="keywordtype">size_t</span> secret_key_length, uint8_t digits, uint64_t counter, <span class="keyword">enum</span> tfac_hash_algo hash_algo);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;TFAC_API uint64_t <a class="code" href="tfac_8h.html#ac4be278ecf13018249a658e339e748f0">tfac_totp_raw</a>(<span class="keyword">const</span> uint8_t* secret_key, <span class="keywordtype">size_t</span> secret_key_length, uint8_t digits, uint8_t steps, <span class="keyword">enum</span> <a class="code" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo);</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#endif // TFAC_H</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;TFAC_API uint8_t <a class="code" href="tfac_8h.html#a935410081095d3b0cfbb3f0adaefd84e">tfac_verify_totp</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* secret_key_base32, <span class="keyword">const</span> <span class="keywordtype">char</span>* totp, uint8_t steps, <span class="keyword">enum</span> <a class="code" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;TFAC_API <span class="keyword">struct </span><a class="code" href="structtfac__token.html">tfac_token</a> <a class="code" href="tfac_8h.html#aff1a6e9bd2b5e2245740c15fac1d3432">tfac_hotp</a>(const char* secret_key_base32, uint8_t digits, uint64_t counter, <span class="keyword">enum</span> <a class="code" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;TFAC_API uint64_t <a class="code" href="tfac_8h.html#a2174c41ee83d29242ad00305678a8011">tfac_hotp_raw</a>(<span class="keyword">const</span> uint8_t* secret_key, <span class="keywordtype">size_t</span> secret_key_length, uint8_t digits, uint64_t counter, <span class="keyword">enum</span> <a class="code" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;TFAC_API <span class="keywordtype">int</span> tfac_totp_verify(<span class="keyword">const</span> <span class="keywordtype">char</span>* totp, <span class="keyword">const</span> <span class="keywordtype">char</span>* secret_key_base32)</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#endif // TFAC_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructtfac__secret_html"><div class="ttname"><a href="structtfac__secret.html">tfac_secret</a></div><div class="ttdef"><b>Definition:</b> tfac.h:76</div></div>
-<div class="ttc" id="astructtfac__secret_html_af62f85207fa502796b88666cb6cb3eb3"><div class="ttname"><a href="structtfac__secret.html#af62f85207fa502796b88666cb6cb3eb3">tfac_secret::secret_key</a></div><div class="ttdeci">uint8_t secret_key[30]</div><div class="ttdef"><b>Definition:</b> tfac.h:87</div></div>
-<div class="ttc" id="astructtfac__secret_html_ad4029da8d9f85fc3c1b6d39ebcccd8a7"><div class="ttname"><a href="structtfac__secret.html#ad4029da8d9f85fc3c1b6d39ebcccd8a7">tfac_secret::secret_key_base32</a></div><div class="ttdeci">char secret_key_base32[48+1]</div><div class="ttdef"><b>Definition:</b> tfac.h:82</div></div>
-<div class="ttc" id="astructtfac__token_html"><div class="ttname"><a href="structtfac__token.html">tfac_token</a></div><div class="ttdef"><b>Definition:</b> tfac.h:56</div></div>
-<div class="ttc" id="astructtfac__token_html_ab3d5a973849aefb8af9d0a4c7daa6f66"><div class="ttname"><a href="structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66">tfac_token::number</a></div><div class="ttdeci">uint64_t number</div><div class="ttdef"><b>Definition:</b> tfac.h:69</div></div>
+<div class="ttc" id="atfac_8h_html_aff1a6e9bd2b5e2245740c15fac1d3432"><div class="ttname"><a href="tfac_8h.html#aff1a6e9bd2b5e2245740c15fac1d3432">tfac_hotp</a></div><div class="ttdeci">TFAC_API struct tfac_token tfac_hotp(const char *secret_key_base32, uint8_t digits, uint64_t counter, enum tfac_hash_algo hash_algo)</div><div class="ttdef"><b>Definition:</b> tfac.c:84</div></div>
+<div class="ttc" id="atfac_8h_html_a935410081095d3b0cfbb3f0adaefd84e"><div class="ttname"><a href="tfac_8h.html#a935410081095d3b0cfbb3f0adaefd84e">tfac_verify_totp</a></div><div class="ttdeci">TFAC_API uint8_t tfac_verify_totp(const char *secret_key_base32, const char *totp, uint8_t steps, enum tfac_hash_algo hash_algo)</div><div class="ttdef"><b>Definition:</b> tfac.c:117</div></div>
+<div class="ttc" id="astructtfac__secret_html"><div class="ttname"><a href="structtfac__secret.html">tfac_secret</a></div><div class="ttdef"><b>Definition:</b> tfac.h:98</div></div>
+<div class="ttc" id="astructtfac__secret_html_af62f85207fa502796b88666cb6cb3eb3"><div class="ttname"><a href="structtfac__secret.html#af62f85207fa502796b88666cb6cb3eb3">tfac_secret::secret_key</a></div><div class="ttdeci">uint8_t secret_key[30]</div><div class="ttdef"><b>Definition:</b> tfac.h:109</div></div>
+<div class="ttc" id="atfac_8h_html_a040d8d5201ba648f26ddfccd014714ef"><div class="ttname"><a href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a></div><div class="ttdeci">tfac_hash_algo</div><div class="ttdef"><b>Definition:</b> tfac.h:68</div></div>
+<div class="ttc" id="atfac_8h_html_ad6aea39f95752bd92e1c9abf21136055"><div class="ttname"><a href="tfac_8h.html#ad6aea39f95752bd92e1c9abf21136055">tfac_generate_secret</a></div><div class="ttdeci">TFAC_API struct tfac_secret tfac_generate_secret()</div><div class="ttdef"><b>Definition:</b> tfac.c:139</div></div>
+<div class="ttc" id="astructtfac__secret_html_ad4029da8d9f85fc3c1b6d39ebcccd8a7"><div class="ttname"><a href="structtfac__secret.html#ad4029da8d9f85fc3c1b6d39ebcccd8a7">tfac_secret::secret_key_base32</a></div><div class="ttdeci">char secret_key_base32[48+1]</div><div class="ttdef"><b>Definition:</b> tfac.h:104</div></div>
+<div class="ttc" id="atfac_8h_html_ac4be278ecf13018249a658e339e748f0"><div class="ttname"><a href="tfac_8h.html#ac4be278ecf13018249a658e339e748f0">tfac_totp_raw</a></div><div class="ttdeci">TFAC_API uint64_t tfac_totp_raw(const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint8_t steps, enum tfac_hash_algo hash_algo)</div><div class="ttdef"><b>Definition:</b> tfac.c:98</div></div>
+<div class="ttc" id="astructtfac__token_html"><div class="ttname"><a href="structtfac__token.html">tfac_token</a></div><div class="ttdef"><b>Definition:</b> tfac.h:78</div></div>
+<div class="ttc" id="atfac_8h_html_a2174c41ee83d29242ad00305678a8011"><div class="ttname"><a href="tfac_8h.html#a2174c41ee83d29242ad00305678a8011">tfac_hotp_raw</a></div><div class="ttdeci">TFAC_API uint64_t tfac_hotp_raw(const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint64_t counter, enum tfac_hash_algo hash_algo)</div><div class="ttdef"><b>Definition:</b> tfac.c:64</div></div>
+<div class="ttc" id="astructtfac__token_html_ab3d5a973849aefb8af9d0a4c7daa6f66"><div class="ttname"><a href="structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66">tfac_token::number</a></div><div class="ttdeci">uint64_t number</div><div class="ttdef"><b>Definition:</b> tfac.h:91</div></div>
+<div class="ttc" id="atfac_8h_html_a7def7a16a9ed2175fa380f6cacbe8ed7"><div class="ttname"><a href="tfac_8h.html#a7def7a16a9ed2175fa380f6cacbe8ed7">tfac_totp</a></div><div class="ttdeci">TFAC_API struct tfac_token tfac_totp(const char *secret_key_base32, uint8_t digits, uint8_t steps, enum tfac_hash_algo hash_algo)</div><div class="ttdef"><b>Definition:</b> tfac.c:103</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

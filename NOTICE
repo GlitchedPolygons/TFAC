@@ -13,13 +13,17 @@ freely available under their respective licenses:
 * * Author: Markus Gutschke
 * * Copyright: Google Inc.
 
+* [Chillbuff](https://github.com/GlitchedPolygons/chillbuff)
+* * License: Apache-2.0
+* * Copyright: Raphael Beck
+
 ---
 
 License texts
 
 ---
 
-The used Base32 implementation and TFAC (this project itself):
+The used Base32 implementation, Chillbuff and TFAC (this project itself):
 
 ---
 

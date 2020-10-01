@@ -20,6 +20,7 @@
 #include "tfac.h"
 #include "base32.h"
 #include "picohash.h"
+#include "chillbuff.h"
 
 #ifdef _WIN32
 #define WIN32_NO_STATUS
@@ -29,16 +30,30 @@
 #endif
 
 #define TFAC_MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define TFAC_MAX(x, y) (((x) > (y)) ? (x) : (y))
 
+#define TFAC_OBLITERATION_TABLE_SIZE 4096
+
+// Digits handling constants:
 static const char* DIGITS_FORMAT[] = { "%ull", "%ull", "%02u", "%03u", "%04u", "%05u", "%06u", "%07u", "%08u", "%09u", "%010u", "%011u", "%012u", "%013u", "%014u", "%015u", "%016u", "%017u", "%018u" };
 static const uint64_t DIGITS_POW[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000, 100000000000, 1000000000000, 10000000000000, 100000000000000, 1000000000000000, 10000000000000000, 100000000000000000, 1000000000000000000 };
 
+// Hash algorithm constants:
 static const size_t HASH_ALGO_DIGEST_LENGTHS[] = { 20, 28, 32 };
 static void (*HASH_ALGOS[])(picohash_ctx_t*) = {
     &picohash_init_sha1,
     &picohash_init_sha224,
     &picohash_init_sha256,
 };
+
+// Token reusage prevention:
+struct tfac_obliterated_token
+{
+    uint8_t used_token_sha256[32];
+    uint8_t secret_key_base32_sha256[32];
+};
+
+static chillbuff obliteration_table = { 0x00 };
 
 static uint64_t truncate(const uint8_t* hmac, const size_t hmac_length, const uint8_t digits)
 {
@@ -83,7 +98,7 @@ struct tfac_token tfac_hotp(const char* secret_key_base32, const uint8_t digits,
     struct tfac_token out;
     memset(&out, 0x00, sizeof(out));
 
-    uint8_t key[256];
+    uint8_t key[TFAC_MAX_SECRET_KEY_SIZE];
     const int key_length = base32_decode((uint8_t*)secret_key_base32, key, sizeof(key));
 
     out.number = tfac_hotp_raw(key, key_length, digits, counter, hash_algo);
@@ -92,9 +107,9 @@ struct tfac_token tfac_hotp(const char* secret_key_base32, const uint8_t digits,
     return out;
 }
 
-uint64_t tfac_totp_raw(const uint8_t* secret_key, const size_t secret_key_length, const uint8_t digits, const uint8_t steps, const enum tfac_hash_algo hash_algo)
+uint64_t tfac_totp_raw(const uint8_t* secret_key, const size_t secret_key_length, const uint8_t digits, const uint8_t steps, const enum tfac_hash_algo hash_algo, const time_t utc)
 {
-    return tfac_hotp_raw(secret_key, secret_key_length, digits, (uint64_t)(time(0) / steps), hash_algo);
+    return tfac_hotp_raw(secret_key, secret_key_length, digits, (uint64_t)(utc / steps), hash_algo);
 }
 
 struct tfac_token tfac_totp(const char* secret_key_base32, const uint8_t digits, const uint8_t steps, const enum tfac_hash_algo hash_algo)
@@ -102,13 +117,74 @@ struct tfac_token tfac_totp(const char* secret_key_base32, const uint8_t digits,
     struct tfac_token out;
     memset(&out, 0x00, sizeof(out));
 
-    uint8_t key[256];
+    uint8_t key[TFAC_MAX_SECRET_KEY_SIZE];
     const int key_length = base32_decode((uint8_t*)secret_key_base32, key, sizeof(key));
 
-    out.number = tfac_totp_raw(key, key_length, digits, steps, hash_algo);
+    out.number = tfac_totp_raw(key, key_length, digits, steps, hash_algo, time(0));
     snprintf(out.string, sizeof(out.string), DIGITS_FORMAT[TFAC_MIN(TFAC_MAX_DIGITS, digits)], out.number);
 
     return out;
+}
+
+void tfac_verify_init(const size_t obliteration_table_size)
+{
+    chillbuff_init(&obliteration_table, obliteration_table_size, sizeof(struct tfac_obliterated_token), CHILLBUFF_GROW_LINEAR);
+}
+
+uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, uint8_t steps, enum tfac_hash_algo hash_algo)
+{
+    const size_t totplen = strlen(totp);
+    const size_t slen = strlen(secret_key_base32);
+
+    if (totplen > TFAC_MAX_DIGITS || secret_key_base32 == 0)
+    {
+        return 0;
+    }
+
+    uint8_t key[TFAC_MAX_SECRET_KEY_SIZE];
+    const int key_length = base32_decode((uint8_t*)secret_key_base32, key, sizeof(key));
+
+    const uint64_t tr = strtoull(totp, NULL, 10);
+    const uint64_t t0 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, time(0));
+    const uint64_t t1 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, time(0) - (uint64_t)steps);
+    const uint64_t t2 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, time(0) + (uint64_t)steps);
+
+    if (tr != t0 && tr != t1 && tr != t2)
+    {
+        return 0;
+    }
+
+    uint8_t totp_sha256[32];
+    uint8_t secret_key_base32_sha256[32];
+
+    picohash_ctx_t ctx;
+    picohash_init_sha256(&ctx);
+    picohash_update(&ctx, &tr, sizeof(tr));
+    picohash_final(&ctx, totp_sha256);
+    picohash_reset(&ctx);
+    picohash_update(&ctx, secret_key_base32, slen);
+    picohash_final(&ctx, secret_key_base32_sha256);
+    picohash_reset(&ctx);
+
+    if (obliteration_table.length > 0)
+    {
+        for (size_t i = obliteration_table.length - 1; i >= 0; i--)
+        {
+            if(memcmp((((struct tfac_obliterated_token*)obliteration_table.array)[i])))
+        }
+    }
+
+    struct tfac_obliterated_token obliterated_token;
+    memcpy(obliterated_token.used_token_sha256, totp_sha256, sizeof(totp_sha256));
+    memcpy(obliterated_token.secret_key_base32_sha256, secret_key_base32_sha256, sizeof(secret_key_base32_sha256));
+    chillbuff_push_back(&obliteration_table, &obliterated_token, 1);
+
+    return 1;
+}
+
+void tfac_verify_free()
+{
+    chillbuff_free(&obliteration_table);
 }
 
 static void tfac_dev_urandom(uint8_t* output_buffer, const size_t output_buffer_size)
@@ -140,3 +216,4 @@ struct tfac_secret tfac_generate_secret()
 }
 
 #undef TFAC_MIN
+#undef TFAC_OBLITERATION_TABLE_SIZE
