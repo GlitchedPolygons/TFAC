@@ -144,8 +144,8 @@ uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, const 
     const time_t ct = time(0);
     const uint64_t tr = strtoull(totp, NULL, 10);
     const uint64_t t0 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct);
-    const uint64_t t1 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct - (uint64_t)steps);
-    const uint64_t t2 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct + (uint64_t)steps);
+    const uint64_t t1 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct - steps);
+    const uint64_t t2 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct + steps);
 
     if (tr != t0 && tr != t1 && tr != t2)
     {
