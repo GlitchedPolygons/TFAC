@@ -30,7 +30,7 @@
 #define tfac_tests_sleep Sleep
 #else
 #include <unistd.h>
-#define tfac_tests_sleep sleep
+#define tfac_tests_sleep(t) sleep((t / 1000))
 #endif
 
 /* A test case that does nothing and succeeds. */
@@ -121,7 +121,7 @@ static void totp_validate_expired_token_fails_except_allowed_error_margin()
 
     const struct tfac_secret s2 = tfac_generate_secret();
     const struct tfac_token t2_1 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
-    tfac_tests_sleep(996);
+    tfac_tests_sleep(1000);
     const struct tfac_token t2_2 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
     TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_1.string, 1, TFAC_SHA1));
     TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_2.string, 1, TFAC_SHA1));
