@@ -25,6 +25,14 @@
 #include "acutest.h"
 #include "../src/tfac.h"
 
+#if defined(_WIN32)
+#include <windows.h>
+#define tfac_tests_sleep Sleep
+#else
+#include <unistd.h>
+#define tfac_tests_sleep sleep
+#endif
+
 /* A test case that does nothing and succeeds. */
 static void null_test_success()
 {
@@ -98,6 +106,27 @@ static void totp_validate_wrong_token_fails()
     TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t2.string, 30, TFAC_SHA1));
 }
 
+static void totp_validate_expired_token_fails_except_allowed_error_margin()
+{
+    const struct tfac_secret s1 = tfac_generate_secret();
+    const struct tfac_token t1_1 = tfac_totp(s1.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
+
+    tfac_tests_sleep(3000);
+
+    const struct tfac_token t1_2 = tfac_totp(s1.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
+    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1_2.string, 1, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1_1.string, 1, TFAC_SHA1));
+
+    // Test the allowed +/- 1 stepcount cycle error margin:
+
+    const struct tfac_secret s2 = tfac_generate_secret();
+    const struct tfac_token t2_1 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
+    tfac_tests_sleep(996);
+    const struct tfac_token t2_2 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
+    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_1.string, 1, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_2.string, 1, TFAC_SHA1));
+}
+
 static void hotp_generates_correctly_and_validates_correctly()
 {
     const struct tfac_secret s1 = tfac_generate_secret();
@@ -142,6 +171,7 @@ TEST_LIST = {
     { "totp_reusage_fails_even_with_lots_of_traffic", totp_reusage_fails_even_with_lots_of_traffic }, //
     { "hotp_generates_correctly_and_validates_correctly", hotp_generates_correctly_and_validates_correctly }, //
     { "hotp_validate_wrong_token_fails", hotp_validate_wrong_token_fails }, //
+    { "totp_validate_expired_token_fails_except_allowed_error_margin", totp_validate_expired_token_fails_except_allowed_error_margin }, //
     // ------------------------------------------------------------------------------------------------------------
     { NULL, NULL } //
 };
