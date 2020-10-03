@@ -14,16 +14,24 @@
    limitations under the License.
 */
 
-#include "tfac.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "tfac.h"
 
 int main(int argc, char* argv[])
 {
     if (argc < 2)
     {
-        printf("No 2FA secret provided! Please pass the Base32-encoded secret key as an argument to generate a TOTP token with it...\n");
+        printf("No 2FA secret provided! Please pass the Base32-encoded secret key as an argument to generate a TOTP token with it... Run \"tfac_cli --help\" for more detailed CLI instructions.\n");
         return -1;
+    }
+
+    if (argc == 2 && strcmp(argv[1], "--help") == 0)
+    {
+        printf("\n TFAC CLI instructions:\n\n tfac_cli <2fa_secret_base32> [digits] [steps] [hash_algo] \n\n Default step count is 30 seconds using 6 digits and hash algo \"0\" (SHA-1).\n");
+        return 0;
     }
 
     const char* secret_key_base32 = argv[1];
@@ -49,11 +57,4 @@ int main(int argc, char* argv[])
     const struct tfac_token token = tfac_totp(secret_key_base32, digits, steps, hash_algo);
 
     printf("%s\n", token.string);
-    // printf("Raw number:   %llu\n", r.number);
-    // printf("Token string: %s\n", r.string);
-
-    int i1=tfac_verify_totp(secret_key_base32, token.string,steps,hash_algo);
-    int i2=tfac_verify_totp(secret_key_base32, token.string,steps,hash_algo);
-    int i3=tfac_verify_totp(secret_key_base32, token.string,steps,hash_algo);
-    int i4;
 }
