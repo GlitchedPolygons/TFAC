@@ -149,7 +149,7 @@ TFAC_API uint64_t tfac_totp_raw(const uint8_t* secret_key, size_t secret_key_len
  * @param totp The token to verify.
  * @param steps The steps parameter that was used to generate the token,
  * @param hash_algo The hash algorithm that the token was created with (default is SHA-1: #TFAC_DEFAULT_HASH_ALGO).
- * @return <c>1</c> if the token was valid; <c>0</c> if verification failed or if the token has already been used once.
+ * @return <c>1</c> if the token was valid; <c>0</c> if verification failed or if the token has already been used.
  */
 TFAC_API uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, uint8_t steps, enum tfac_hash_algo hash_algo);
 
