@@ -91,8 +91,6 @@ if (${${PROJECT_NAME}_PACKAGE})
             )
 endif ()
 
-get_target_property(${PROJECT_NAME}_DEPS_TARGETS ${PROJECT_NAME} LINK_LIBRARIES)
-
 if (${${PROJECT_NAME}_ENABLE_TESTS})
 
     add_executable(run_tests
@@ -100,15 +98,10 @@ if (${${PROJECT_NAME}_ENABLE_TESTS})
             ${CMAKE_CURRENT_LIST_DIR}/tests/tests.c
             )
 
-    target_link_libraries(run_tests
-            PUBLIC ${PROJECT_NAME}
-            PUBLIC ${${PROJECT_NAME}_DEPS_TARGETS}
-            )
-
-    target_include_directories(run_tests
-            PUBLIC ${${PROJECT_NAME}_INCLUDE_DIR}
-            )
-
+    if (WIN32)
+        target_link_libraries(run_tests PUBLIC bcrypt)
+    endif ()
+    
     if (ENABLE_COVERAGE)
         find_package(codecov)
         add_coverage(${PROJECT_NAME})
