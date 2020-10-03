@@ -1,0 +1,11 @@
+ignore:
+  - "lib"
+  - "tests"
+  - ".idea"
+  - ".github"
+  - "examples"
+  - "programs"
+  - "src/tfac_cli.c"
+  - "src/base32.h"
+  - "src/base32.c"
+  - "src/picohash.h"

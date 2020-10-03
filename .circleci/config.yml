@@ -19,4 +19,4 @@ jobs:
       - run:
           name: Upload coverage reports
           when: on_success
-          command: cd build/CMakeFiles/TFAC.dir/src && bash <(curl -s https://codecov.io/bash)
+          command: cd build/CMakeFiles/run_tests.dir/src && bash <(curl -s https://codecov.io/bash)
