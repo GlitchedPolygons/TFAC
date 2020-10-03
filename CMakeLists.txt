@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.10)
 project(TFAC C)
 
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 option(${PROJECT_NAME}_DLL "Use as a DLL." OFF)
 option(${PROJECT_NAME}_BUILD_DLL "Build as a DLL." OFF)
+option(${PROJECT_NAME}_ENABLE_TESTS "Build unit tests." OFF)
 option(${PROJECT_NAME}_PACKAGE "Build the library and package it into a .tar.gz after successfully building." OFF)
 
 set(${PROJECT_NAME}_MAJOR 1)
@@ -87,4 +89,30 @@ if (${${PROJECT_NAME}_PACKAGE})
             POST_BUILD COMMAND ${CMAKE_COMMAND}
             -E tar "czvf" ${${PROJECT_NAME}_OUTPUT_ARCHIVE_FILENAME} ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}
             )
+endif ()
+
+get_target_property(${PROJECT_NAME}_DEPS_TARGETS ${PROJECT_NAME} LINK_LIBRARIES)
+
+if (${${PROJECT_NAME}_ENABLE_TESTS})
+
+    add_executable(run_tests
+            ${${PROJECT_NAME}_SRC}
+            ${CMAKE_CURRENT_LIST_DIR}/tests/tests.c
+            )
+
+    target_link_libraries(run_tests
+            PUBLIC ${PROJECT_NAME}
+            PUBLIC ${${PROJECT_NAME}_DEPS_TARGETS}
+            )
+
+    target_include_directories(run_tests
+            PUBLIC ${${PROJECT_NAME}_INCLUDE_DIR}
+            )
+
+    if (ENABLE_COVERAGE)
+        find_package(codecov)
+        add_coverage(${PROJECT_NAME})
+        add_coverage(run_tests)
+        coverage_evaluate()
+    endif ()
 endif ()

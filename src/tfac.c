@@ -47,7 +47,7 @@ static void (*HASH_ALGOS[])(picohash_ctx_t*) = {
     &picohash_init_sha256,
 };
 
-// Token reusage prevention:
+// Token re-usage prevention:
 struct tfac_obliterated_token
 {
     uint8_t used_token_sha256[32];
