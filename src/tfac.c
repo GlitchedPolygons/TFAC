@@ -134,7 +134,7 @@ uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, const 
     const size_t totplen = strlen(totp);
     const size_t slen = strlen(secret_key_base32);
 
-    if (totplen > TFAC_MAX_DIGITS || secret_key_base32 == 0)
+    if (totplen == 0 || totplen > TFAC_MAX_DIGITS || secret_key_base32 == 0)
     {
         return 0;
     }

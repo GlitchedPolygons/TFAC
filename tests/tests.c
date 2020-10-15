@@ -104,6 +104,7 @@ static void totp_validate_wrong_token_fails()
 
     TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
     TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t2.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, "", TFAC_DEFAULT_STEPS, TFAC_SHA1));
 }
 
 static void totp_validate_expired_token_fails_except_allowed_error_margin()
