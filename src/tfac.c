@@ -58,7 +58,7 @@ struct tfac_obliterated_token
 static struct tfac_obliterated_token obliteration_table[TFAC_MIN(TFAC_OBLITERATION_TABLE_SIZE, UINT32_MAX - 2)] = { 0x00 };
 static uint32_t next_obliteration_index = 0;
 
-static uint64_t truncate(const uint8_t* hmac, const size_t hmac_length, const uint8_t digits)
+static uint64_t tfac_truncate(const uint8_t* hmac, const size_t hmac_length, const uint8_t digits)
 {
     uint8_t offset = hmac[hmac_length - 1] & 0x0F;
     uint64_t trunc = 0;
@@ -93,7 +93,7 @@ uint64_t tfac_hotp_raw(const uint8_t* secret_key, const size_t secret_key_length
     picohash_update(&ctx, c, sizeof(counter));
     picohash_final(&ctx, hash);
 
-    return truncate(hash, HASH_ALGO_DIGEST_LENGTHS[hash_algo], digits);
+    return tfac_truncate(hash, HASH_ALGO_DIGEST_LENGTHS[hash_algo], digits);
 }
 
 struct tfac_token tfac_hotp(const char* secret_key_base32, const uint8_t digits, const uint64_t counter, const enum tfac_hash_algo hash_algo)
