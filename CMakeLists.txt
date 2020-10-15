@@ -9,9 +9,9 @@ option(${PROJECT_NAME}_BUILD_DLL "Build as a DLL." OFF)
 option(${PROJECT_NAME}_ENABLE_TESTS "Build unit tests." OFF)
 option(${PROJECT_NAME}_PACKAGE "Build the library and package it into a .tar.gz after successfully building." OFF)
 
-set(${PROJECT_NAME}_MAJOR 1)
+set(${PROJECT_NAME}_MAJOR 2)
 set(${PROJECT_NAME}_MINOR 0)
-set(${PROJECT_NAME}_PATCH 1)
+set(${PROJECT_NAME}_PATCH 0)
 set(${PROJECT_NAME}_VERSION_STRING "${${PROJECT_NAME}_MAJOR}.${${PROJECT_NAME}_MINOR}.${${PROJECT_NAME}_PATCH}")
 
 set(${PROJECT_NAME}_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
