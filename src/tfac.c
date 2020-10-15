@@ -129,12 +129,9 @@ struct tfac_token tfac_totp(const char* secret_key_base32, const uint8_t digits,
     return out;
 }
 
-uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, const uint8_t steps, const enum tfac_hash_algo hash_algo)
+uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, const uint8_t digits, const uint8_t steps, const enum tfac_hash_algo hash_algo)
 {
-    const size_t totplen = strlen(totp);
-    const size_t slen = strlen(secret_key_base32);
-
-    if (totplen == 0 || totplen > TFAC_MAX_DIGITS || secret_key_base32 == 0)
+    if (digits == 0 || strlen(totp) != digits || secret_key_base32 == 0)
     {
         return 0;
     }
@@ -144,9 +141,9 @@ uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, const 
 
     const time_t ct = time(0);
     const uint64_t tr = strtoull(totp, NULL, 10);
-    const uint64_t t0 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct);
-    const uint64_t t1 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct - steps);
-    const uint64_t t2 = tfac_totp_raw(key, key_length, totplen, steps, hash_algo, ct + steps);
+    const uint64_t t0 = tfac_totp_raw(key, key_length, digits, steps, hash_algo, ct);
+    const uint64_t t1 = tfac_totp_raw(key, key_length, digits, steps, hash_algo, ct - steps);
+    const uint64_t t2 = tfac_totp_raw(key, key_length, digits, steps, hash_algo, ct + steps);
 
     if (tr != t0 && tr != t1 && tr != t2)
     {
@@ -161,7 +158,7 @@ uint8_t tfac_verify_totp(const char* secret_key_base32, const char* totp, const 
     picohash_update(&ctx, &tr, sizeof(tr));
     picohash_final(&ctx, totp_sha256);
     picohash_reset(&ctx);
-    picohash_update(&ctx, secret_key_base32, slen);
+    picohash_update(&ctx, secret_key_base32, strlen(secret_key_base32));
     picohash_final(&ctx, secret_key_base32_sha256);
     picohash_reset(&ctx);
 

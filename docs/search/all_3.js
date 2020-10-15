@@ -15,5 +15,5 @@ var searchData=
   ['tfac_5ftoken_17',['tfac_token',['../structtfac__token.html',1,'']]],
   ['tfac_5ftotp_18',['tfac_totp',['../tfac_8h.html#a7def7a16a9ed2175fa380f6cacbe8ed7',1,'tfac.c']]],
   ['tfac_5ftotp_5fraw_19',['tfac_totp_raw',['../tfac_8h.html#a686f332ea947f093797b6020c84080bf',1,'tfac.c']]],
-  ['tfac_5fverify_5ftotp_20',['tfac_verify_totp',['../tfac_8h.html#a935410081095d3b0cfbb3f0adaefd84e',1,'tfac.c']]]
+  ['tfac_5fverify_5ftotp_20',['tfac_verify_totp',['../tfac_8h.html#a26f5457c08a9a9735a09112ac6a6c64f',1,'tfac.c']]]
 ];

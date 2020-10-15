@@ -133,8 +133,8 @@ Functions</h2></td></tr>
 <tr class="separator:a7def7a16a9ed2175fa380f6cacbe8ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a686f332ea947f093797b6020c84080bf"><td class="memItemLeft" align="right" valign="top">TFAC_API uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a686f332ea947f093797b6020c84080bf">tfac_totp_raw</a> (const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo, time_t utc)</td></tr>
 <tr class="separator:a686f332ea947f093797b6020c84080bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a935410081095d3b0cfbb3f0adaefd84e"><td class="memItemLeft" align="right" valign="top">TFAC_API uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a935410081095d3b0cfbb3f0adaefd84e">tfac_verify_totp</a> (const char *secret_key_base32, const char *totp, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
-<tr class="separator:a935410081095d3b0cfbb3f0adaefd84e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26f5457c08a9a9735a09112ac6a6c64f"><td class="memItemLeft" align="right" valign="top">TFAC_API uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a26f5457c08a9a9735a09112ac6a6c64f">tfac_verify_totp</a> (const char *secret_key_base32, const char *totp, uint8_t digits, uint8_t steps, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
+<tr class="separator:a26f5457c08a9a9735a09112ac6a6c64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff1a6e9bd2b5e2245740c15fac1d3432"><td class="memItemLeft" align="right" valign="top">TFAC_API struct <a class="el" href="structtfac__token.html">tfac_token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#aff1a6e9bd2b5e2245740c15fac1d3432">tfac_hotp</a> (const char *secret_key_base32, uint8_t digits, uint64_t counter, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
 <tr class="separator:aff1a6e9bd2b5e2245740c15fac1d3432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2174c41ee83d29242ad00305678a8011"><td class="memItemLeft" align="right" valign="top">TFAC_API uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a2174c41ee83d29242ad00305678a8011">tfac_hotp_raw</a> (const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint64_t counter, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
@@ -478,8 +478,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a935410081095d3b0cfbb3f0adaefd84e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a935410081095d3b0cfbb3f0adaefd84e">&#9670;&nbsp;</a></span>tfac_verify_totp()</h2>
+<a id="a26f5457c08a9a9735a09112ac6a6c64f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26f5457c08a9a9735a09112ac6a6c64f">&#9670;&nbsp;</a></span>tfac_verify_totp()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,6 +495,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>totp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>digits</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -519,12 +525,13 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">secret_key_base32</td><td>The 2FA secret (Base32-encoded, NUL-terminated string). </td></tr>
     <tr><td class="paramname">totp</td><td>The token to verify. </td></tr>
+    <tr><td class="paramname">digits</td><td>How many digits the token to validate is supposed to contain. </td></tr>
     <tr><td class="paramname">steps</td><td>The steps parameter that was used to generate the token, </td></tr>
     <tr><td class="paramname">hash_algo</td><td>The hash algorithm that the token was created with (default is SHA-1: <a class="el" href="tfac_8h.html#accae475f4b0af1b4bb889b8f59ba4b43">TFAC_DEFAULT_HASH_ALGO</a>). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>1</code> if the token was valid; <code>0</code> if verification failed or if the token has already been used once. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> if the token was valid; <code>0</code> if verification failed or if the token has already been used. </dd></dl>
 
 </div>
 </div>

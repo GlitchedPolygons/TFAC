@@ -43,30 +43,30 @@ static void totp_generates_and_validates_correctly()
 {
     const struct tfac_secret s1 = tfac_generate_secret();
     const struct tfac_token t1 = tfac_totp(s1.secret_key_base32, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1);
-    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
 
     const struct tfac_secret s2 = tfac_generate_secret();
     const struct tfac_token t2 = tfac_totp(s2.secret_key_base32, 8, 25, TFAC_SHA256);
-    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
+    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
 
     const struct tfac_secret s3 = tfac_generate_secret();
     const struct tfac_token t3 = tfac_totp(s3.secret_key_base32, 12, 12, TFAC_SHA1);
-    TEST_CHECK(tfac_verify_totp(s3.secret_key_base32, t3.string, 12, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s3.secret_key_base32, t3.string, 12, 12, TFAC_SHA1));
 }
 
 static void totp_reusage_fails()
 {
     const struct tfac_secret s1 = tfac_generate_secret();
     const struct tfac_token t1 = tfac_totp(s1.secret_key_base32, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1);
-    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
-    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
 
     const struct tfac_secret s2 = tfac_generate_secret();
     const struct tfac_token t2 = tfac_totp(s2.secret_key_base32, 8, 25, TFAC_SHA256);
-    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
-    TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
-    TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
-    TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
+    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
+    TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
+    TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
+    TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
 }
 
 static void totp_reusage_fails_even_with_lots_of_traffic()
@@ -76,22 +76,22 @@ static void totp_reusage_fails_even_with_lots_of_traffic()
         const struct tfac_secret s1 = tfac_generate_secret();
         const struct tfac_token t1 = tfac_totp(s1.secret_key_base32, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_DEFAULT_HASH_ALGO);
 
-        TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
-        TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+        TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+        TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
 
         const struct tfac_secret s2 = tfac_generate_secret();
         const struct tfac_token t2 = tfac_totp(s2.secret_key_base32, 8, 25, TFAC_SHA256);
 
-        TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
-        TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
-        TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
-        TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 25, TFAC_SHA256));
+        TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
+        TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
+        TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
+        TEST_CHECK(!tfac_verify_totp(s2.secret_key_base32, t2.string, 8, 25, TFAC_SHA256));
     }
 }
 
 static void totp_too_many_digits_validation_fails()
 {
-    TEST_CHECK(!tfac_verify_totp("7LJ26BSA4LKA5HMJ62OA65GU443MD6VCGS3DJH765TURZFVL", "0384674762807506494875736506294931874314002487965614145678029857", 30, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp("7LJ26BSA4LKA5HMJ62OA65GU443MD6VCGS3DJH765TURZFVL", "0384674762807506494875736506294931874314002487965614145678029857", 64, TFAC_DEFAULT_STEPS, TFAC_SHA1));
 }
 
 static void totp_validate_wrong_token_fails()
@@ -102,9 +102,9 @@ static void totp_validate_wrong_token_fails()
     const struct tfac_secret s2 = tfac_generate_secret();
     const struct tfac_token t2 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_DEFAULT_HASH_ALGO);
 
-    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
-    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t2.string, TFAC_DEFAULT_STEPS, TFAC_SHA1));
-    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, "", TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t2.string, TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, "", TFAC_DEFAULT_DIGITS, TFAC_DEFAULT_STEPS, TFAC_SHA1));
 }
 
 static void totp_validate_expired_token_fails_except_allowed_error_margin()
@@ -115,8 +115,8 @@ static void totp_validate_expired_token_fails_except_allowed_error_margin()
     tfac_tests_sleep(3000);
 
     const struct tfac_token t1_2 = tfac_totp(s1.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
-    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1_2.string, 1, TFAC_SHA1));
-    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1_1.string, 1, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s1.secret_key_base32, t1_2.string, TFAC_DEFAULT_DIGITS, 1, TFAC_SHA1));
+    TEST_CHECK(!tfac_verify_totp(s1.secret_key_base32, t1_1.string, TFAC_DEFAULT_DIGITS, 1, TFAC_SHA1));
 
     // Test the allowed +/- 1 stepcount cycle error margin:
 
@@ -124,8 +124,8 @@ static void totp_validate_expired_token_fails_except_allowed_error_margin()
     const struct tfac_token t2_1 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
     tfac_tests_sleep(1000);
     const struct tfac_token t2_2 = tfac_totp(s2.secret_key_base32, TFAC_DEFAULT_DIGITS, 1, TFAC_DEFAULT_HASH_ALGO);
-    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_1.string, 1, TFAC_SHA1));
-    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_2.string, 1, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_1.string, TFAC_DEFAULT_DIGITS, 1, TFAC_SHA1));
+    TEST_CHECK(tfac_verify_totp(s2.secret_key_base32, t2_2.string, TFAC_DEFAULT_DIGITS, 1, TFAC_SHA1));
 }
 
 static void hotp_generates_correctly_and_validates_correctly()
