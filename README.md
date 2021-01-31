@@ -4,6 +4,7 @@ Originally, I was gonna call this "Two Fucks Given", but apparently that's not c
 
 [![codecov](https://codecov.io/gh/GlitchedPolygons/TFAC/branch/master/graph/badge.svg?token=CQ3FSRTL6M)](https://app.codecov.io/gh/GlitchedPolygons/TFAC)
 [![CircleCI](https://circleci.com/gh/GlitchedPolygons/TFAC/tree/master.svg?style=shield)](https://circleci.com/gh/GlitchedPolygons/TFAC/tree/master)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/511whbbia540xp59/branch/master?svg=true)](https://ci.appveyor.com/project/GlitchedPolygons/tfac/branch/master)
 [![License Shield](https://img.shields.io/badge/license-Apache--2.0-orange)](https://github.com/GlitchedPolygons/TFAC/blob/master/LICENSE)
 [![API Docs](https://img.shields.io/badge/api-docs-informational.svg)](https://glitchedpolygons.github.io/TFAC/tfac_8h.html)
 
