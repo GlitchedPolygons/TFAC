@@ -1,3 +1,4 @@
 tests/acutest.h linguist-vendored
-docs/* linguist-documentation
+docs/* linguist-vendored
 lib/* linguist-vendored
+lib/doxygen-awesome/* linguist-vendored
