@@ -1,4 +1,3 @@
 tests/acutest.h linguist-vendored
 docs/* linguist-vendored
 lib/* linguist-vendored
-lib/doxygen-awesome/* linguist-vendored
