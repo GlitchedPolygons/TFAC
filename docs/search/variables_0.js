@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['number_0',['number',['../structtfac__token.html#ab3d5a973849aefb8af9d0a4c7daa6f66',1,'tfac_token']]]
+  ['major_0',['major',['../structtfac__version__number.html#a9fbbf71e8c454501711fb3ff232750d7',1,'tfac_version_number']]],
+  ['minor_1',['minor',['../structtfac__version__number.html#a0516e7d9031ea84e6b31ba3ddd5bb8bf',1,'tfac_version_number']]]
 ];

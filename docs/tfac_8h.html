@@ -101,6 +101,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtfac__secret.html">tfac_secret</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtfac__version__number.html">tfac_version_number</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -140,6 +142,8 @@ Functions</h2></td></tr>
 <tr class="separator:aff1a6e9bd2b5e2245740c15fac1d3432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2174c41ee83d29242ad00305678a8011"><td class="memItemLeft" align="right" valign="top">TFAC_API uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a2174c41ee83d29242ad00305678a8011">tfac_hotp_raw</a> (const uint8_t *secret_key, size_t secret_key_length, uint8_t digits, uint64_t counter, enum <a class="el" href="tfac_8h.html#a040d8d5201ba648f26ddfccd014714ef">tfac_hash_algo</a> hash_algo)</td></tr>
 <tr class="separator:a2174c41ee83d29242ad00305678a8011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f491d79bdf056298a3b7cae0afe0e9"><td class="memItemLeft" align="right" valign="top">TFAC_API struct <a class="el" href="structtfac__version__number.html">tfac_version_number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tfac_8h.html#a14f491d79bdf056298a3b7cae0afe0e9">tfac_get_version_number</a> ()</td></tr>
+<tr class="separator:a14f491d79bdf056298a3b7cae0afe0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >2FA (Two-Factor Authentication) for C using TOTP/HOTP. </p>
@@ -253,6 +257,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Generate a random 2FA secret to use for HOTP/TOTP token generation. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="structtfac__secret.html">tfac_secret</a> instance containing both the base32-encoded as well as the raw secret key bytes. </dd></dl>
+
+</div>
+</div>
+<a id="a14f491d79bdf056298a3b7cae0afe0e9" name="a14f491d79bdf056298a3b7cae0afe0e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f491d79bdf056298a3b7cae0afe0e9">&#9670;&nbsp;</a></span>tfac_get_version_number()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TFAC_API struct <a class="el" href="structtfac__version__number.html">tfac_version_number</a> tfac_get_version_number </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Gets the current TFAC library version number. </p><dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structtfac__version__number.html">tfac_version_number</a> instance containing raw numbers as well as a nicely formatted string (in the format of <code>MAJOR.MINOR.HOTFIX</code> ). </dd></dl>
 
 </div>
 </div>
