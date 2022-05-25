@@ -162,6 +162,13 @@ static void hotp_validate_wrong_token_fails()
     TEST_ASSERT(t1_2.number != t2_2.number);
 }
 
+static void tfac_test_version_number_retrieval()
+{
+    const struct tfac_version_number v = tfac_get_version_number();
+    TEST_CHECK(v.major > 1);
+    TEST_CHECK(v.string[0] != '\0');
+}
+
 TEST_LIST = {
     //
     { "nulltest", null_test_success }, //
@@ -173,6 +180,7 @@ TEST_LIST = {
     { "hotp_generates_correctly_and_validates_correctly", hotp_generates_correctly_and_validates_correctly }, //
     { "hotp_validate_wrong_token_fails", hotp_validate_wrong_token_fails }, //
     { "totp_validate_expired_token_fails_except_allowed_error_margin", totp_validate_expired_token_fails_except_allowed_error_margin }, //
+    { "tfac_test_version_number_retrieval", tfac_test_version_number_retrieval }, //
     // ------------------------------------------------------------------------------------------------------------
     { NULL, NULL } //
 };
