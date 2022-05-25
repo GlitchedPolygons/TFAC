@@ -115,6 +115,32 @@ struct tfac_secret
 };
 
 /**
+ * Structure containing TFAC library version information.
+ */
+struct tfac_version_number
+{
+    /**
+     * Major version number.
+     */
+    uint32_t major;
+
+    /**
+     * Minor version number.
+     */
+    uint32_t minor;
+
+    /**
+     * Hotfix/patch number.
+     */
+    uint32_t patch;
+
+    /**
+     * Nicely formatted version number string.
+     */
+    char string[32];
+};
+
+/**
  * Generate a random 2FA secret to use for HOTP/TOTP token generation.
  * @return tfac_secret instance containing both the base32-encoded as well as the raw secret key bytes.
  */
@@ -175,6 +201,12 @@ TFAC_API struct tfac_token tfac_hotp(const char* secret_key_base32, uint8_t digi
  * @return The HOTP token as an unsigned 64-bit integer.
  */
 TFAC_API uint64_t tfac_hotp_raw(const uint8_t* secret_key, size_t secret_key_length, uint8_t digits, uint64_t counter, enum tfac_hash_algo hash_algo);
+
+/**
+ * Gets the current TFAC library version number.
+ * @return A tfac_version_number instance containing raw numbers as well as a nicely formatted string (in the format of \c MAJOR.MINOR.HOTFIX ).
+ */
+TFAC_API struct tfac_version_number tfac_get_version_number();
 
 #ifdef __cplusplus
 } // extern "C"

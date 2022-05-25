@@ -34,6 +34,13 @@ int main(int argc, char* argv[])
         return 0;
     }
 
+    if (argc == 2 && strcmp(argv[1], "--version") == 0)
+    {
+        struct tfac_version_number v = tfac_get_version_number();
+        printf("\n TFAC version: %s\n", v.string);
+        return 0;
+    }
+
     const char* secret_key_base32 = argv[1];
     uint8_t digits = TFAC_DEFAULT_DIGITS;
     uint8_t steps = TFAC_DEFAULT_STEPS;

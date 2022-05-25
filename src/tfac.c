@@ -38,7 +38,8 @@
 
 // Digits handling constants:
 static const char* DIGITS_FORMAT[] = { "%ull", "%ull", "%02u", "%03u", "%04u", "%05u", "%06u", "%07u", "%08u", "%09u", "%010u", "%011u", "%012u", "%013u", "%014u", "%015u", "%016u", "%017u", "%018u" };
-static const uint64_t DIGITS_POW[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000, 100000000000, 1000000000000, 10000000000000, 100000000000000, 1000000000000000, 10000000000000000, 100000000000000000, 1000000000000000000 };
+static const uint64_t DIGITS_POW[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000, 100000000000, 1000000000000, 10000000000000, 100000000000000, 1000000000000000, 10000000000000000, 100000000000000000,
+    1000000000000000000 };
 
 // Hash algorithm constants:
 static const size_t HASH_ALGO_DIGEST_LENGTHS[] = { 20, 28, 32 };
@@ -215,6 +216,19 @@ struct tfac_secret tfac_generate_secret()
     base32_encode(out.secret_key, sizeof(out.secret_key), (uint8_t*)out.secret_key_base32, sizeof(out.secret_key_base32));
 
     return out;
+}
+
+struct tfac_version_number tfac_get_version_number()
+{
+    struct tfac_version_number output = { 0x00 };
+
+    output.major = 2;
+    output.minor = 1;
+    output.patch = 0;
+
+    snprintf(output.string, sizeof(output.string), "%d.%d.%d", output.major, output.minor, output.patch);
+
+    return output;
 }
 
 #undef TFAC_MIN
