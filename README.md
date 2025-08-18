@@ -1,23 +1,33 @@
+> [!IMPORTANT]
+>
+> # **NOTICE:**
+>
+> ## Development of this project has been migrated to: https://codeberg.org/GlitchedPolygons/TFAC
+>
+> ## All pull requests and issues on GitHub will be ignored from the 16th of August, 2025 onwards.
+
 # TFAC
+
 ## 2FA (Two-Factor Authentication) for C using TOTP/HOTP.
+
 Originally, I was gonna call this "Two Fucks Given", but apparently that's not civilized...
 
 [![codecov](https://codecov.io/gh/GlitchedPolygons/TFAC/branch/master/graph/badge.svg?token=CQ3FSRTL6M)](https://app.codecov.io/gh/GlitchedPolygons/TFAC)
 [![CircleCI](https://circleci.com/gh/GlitchedPolygons/TFAC/tree/master.svg?style=shield)](https://circleci.com/gh/GlitchedPolygons/TFAC/tree/master)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/511whbbia540xp59/branch/master?svg=true)](https://ci.appveyor.com/project/GlitchedPolygons/tfac/branch/master)
-[![License Shield](https://img.shields.io/badge/license-Apache--2.0-orange)](https://github.com/GlitchedPolygons/TFAC/blob/master/LICENSE)
+[![License Shield](https://img.shields.io/badge/license-Apache--2.0-orange)](https://codeberg.org/GlitchedPolygons/TFAC/src/branch/master/LICENSE)
 [![API Docs](https://img.shields.io/badge/api-docs-informational.svg)](https://glitchedpolygons.github.io/TFAC/tfac_8h.html)
 
 ### How to clone
 
-`git clone https://github.com/GlitchedPolygons/TFAC.git`
+`git clone https://codeberg.org/GlitchedPolygons/TFAC.git`
 
 ### How to use
 
 Just add TFAC as a git submodule to your project (e.g. into some `lib/` or `deps/` folder inside your project's repo; `{repo_root}/lib/` is used here in the following example).
 
 ```
-git submodule add https://github.com/GlitchedPolygons/TFAC.git lib/TFAC
+git submodule add https://codeberg.org/GlitchedPolygons/TFAC.git lib/TFAC
 git submodule update --init --recursive
 ```
 
@@ -25,7 +35,7 @@ If you don't want to use git submodules, you can also start vendoring a specific
 
 ### Compiling
 
-There are pre-built binaries for every major platform for you to download inside the [GitHub Releases page](https://github.com/GlitchedPolygons/TFAC/releases). Thanks for downloading, and I hope you enjoy!
+There are pre-built binaries for every major platform for you to download inside the [GitHub Releases page](https://codeberg.org/GlitchedPolygons/TFAC/releases). Thanks for downloading, and I hope you enjoy!
 
 Oh, you're still here :) You really want to compile it yourself, huh. 
 Cool. 
@@ -46,7 +56,7 @@ This is equivalent to static linking by default, but much more pleasant than the
 
 #### Dynamic linking
 
-* To dynamically link TFAC into your application on Windows, you need to `#define TFAC_DLL` before including the [tfac.h](https://github.com/GlitchedPolygons/TFAC/blob/master/src/tfac.h) header in your code! (Or, alternatively, add the `TFAC_DLL` pre-processor definition inside your build script/solution config)
+* To dynamically link TFAC into your application on Windows, you need to `#define TFAC_DLL` before including the [tfac.h](https://codeberg.org/GlitchedPolygons/TFAC/src/branch/master/src/tfac.h) header in your code! (Or, alternatively, add the `TFAC_DLL` pre-processor definition inside your build script/solution config)
 * * This will add the `__declspec(dllexport)` declaration that is needed on Windows to the various TFAC functions.
 * If you did not grab the pre-built DLL, you need to define/pass the pre-processor macro `TFAC_BUILD_DLL` before compiling TFAC!
 * * Your consuming code should then only `#define TFAC_DLL` (as stated above).
