@@ -35,7 +35,7 @@ If you don't want to use git submodules, you can also start vendoring a specific
 
 ### Compiling
 
-There are pre-built binaries for every major platform for you to download inside the [GitHub Releases page](https://codeberg.org/GlitchedPolygons/TFAC/releases). Thanks for downloading, and I hope you enjoy!
+There are pre-built binaries for every major platform for you to download inside the [Releases page](https://codeberg.org/GlitchedPolygons/TFAC/releases). Thanks for downloading, and I hope you enjoy!
 
 Oh, you're still here :) You really want to compile it yourself, huh. 
 Cool. 
