@@ -51,7 +51,7 @@ This works on Windows too: just use the [Git Bash for Windows](https://git-scm.c
 
 #### CMake
 
-If you use [CMake](https://cmake.org) you can just `add_subdirectory(path_to_submodule)` and then `target_link_libraries(your_project PRIVATE TFAC)` inside your CMakeLists.txt file. Done! You can now include [the TFAC header](https://github.com/GlitchedPolygons/TFAC/blob/master/src/tfac.h) in your code and be done with it.
+If you use [CMake](https://cmake.org) you can just `add_subdirectory(path_to_submodule)` and then `target_link_libraries(your_project PRIVATE TFAC)` inside your CMakeLists.txt file. Done! You can now include [the TFAC header](https://codeberg.org/GlitchedPolygons/TFAC/src/branch/master/src/tfac.h) in your code and be done with it.
 This is equivalent to static linking by default, but much more pleasant than the manual variant.
 
 #### Dynamic linking
